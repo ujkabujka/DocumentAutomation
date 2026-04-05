@@ -1,0 +1,106 @@
+# Repository-wide ignore rules for this mixed .NET / WPF / Web / EF Core workspace.
+# Keep shared VS Code debug files, but ignore user-specific editor state and generated outputs.
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+artifacts/
+publish/
+out/
+
+# Generated reference outputs
+ref/
+refint/
+
+# Logs and diagnostics
+*.log
+*.binlog
+*.tlog
+*.trace
+*.nettrace
+*.stackdump
+[Ll]og/
+[Ll]ogs/
+
+# Test / coverage outputs
+TestResults/
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+coverage-report/
+CodeCoverage/
+BenchmarkDotNet.Artifacts/
+opencoverage/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Local app configuration / secrets
+appsettings.local.json
+appsettings.*.local.json
+.env
+.env.local
+.env.*.local
+
+# Visual Studio
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / ReSharper
+.idea/
+.rider/
+*.sln.iml
+_ReSharper*/
+*.DotSettings.user
+
+# VS Code
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+
+# Web / frontend package folders if any appear later
+node_modules/
+dist/
+build/
+
+# Misc generated binaries / symbols
+*.dll
+*.exe
+*.pdb
+
+# Repository-specific runtime output folders if created outside bin/obj
+data/output/
