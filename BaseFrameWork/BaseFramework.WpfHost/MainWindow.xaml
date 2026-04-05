@@ -1,0 +1,19 @@
+<Window x:Class="BaseFramework.WpfHost.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:BaseFramework.WpfHost.Controls"
+        xmlns:navigation="clr-namespace:BaseFramework.WpfHost.Controls.Navigation"
+        mc:Ignorable="d"
+        Title="Codex Framework Denetleyici"
+        Height="900"
+        Width="1400"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        ResizeMode="CanResize"
+        Background="{StaticResource SurfaceBrush}">
+    <Grid Margin="16">
+        <navigation:NavigationHostControl x:Name="NavigationHost" />
+    </Grid>
+</Window>
