@@ -18,6 +18,16 @@ artifacts/
 publish/
 out/
 
+# Explicit recursive coverage for nested solutions/projects
+**/[Bb]in/
+**/[Oo]bj/
+**/[Dd]ebug/
+**/[Dd]ebugPublic/
+**/[Rr]elease/
+**/[Rr]eleases/
+**/artifacts/
+**/TestResults/
+
 # Generated reference outputs
 ref/
 refint/
@@ -59,6 +69,7 @@ appsettings.*.local.json
 
 # Visual Studio
 .vs/
+**/.vs/
 *.user
 *.rsuser
 *.suo
@@ -67,7 +78,9 @@ appsettings.*.local.json
 
 # Rider / ReSharper
 .idea/
+**/.idea/
 .rider/
+**/.rider/
 *.sln.iml
 _ReSharper*/
 *.DotSettings.user
