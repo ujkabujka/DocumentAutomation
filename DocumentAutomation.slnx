@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/BaseFrameWork/">
+    <Project Path="BaseFrameWork/BaseFramework.Core/BaseFramework.Core.csproj" />
+    <Project Path="BaseFrameWork/BaseFramework.Generators/BaseFramework.Generators.csproj" />
+    <Project Path="BaseFrameWork/BaseFramework.Wpf/BaseFramework.Wpf.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/DocumentAutomation.App/DocumentAutomation.App.csproj" />
+    <Project Path="src/DocumentAutomation.Application/DocumentAutomation.Application.csproj" />
+    <Project Path="src/DocumentAutomation.Domain/DocumentAutomation.Domain.csproj" />
+    <Project Path="src/DocumentAutomation.Infrastructure/DocumentAutomation.Infrastructure.csproj" />
+    <Project Path="src/DocumentAutomation.Persistence/DocumentAutomation.Persistence.csproj" />
+    <Project Path="src/DocumentAutomation.Word/DocumentAutomation.Word.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DocumentAutomation.Application.Tests/DocumentAutomation.Application.Tests.csproj" />
+    <Project Path="tests/DocumentAutomation.Persistence.Tests/DocumentAutomation.Persistence.Tests.csproj" />
+    <Project Path="tests/DocumentAutomation.Word.Tests/DocumentAutomation.Word.Tests.csproj" />
+  </Folder>
+</Solution>

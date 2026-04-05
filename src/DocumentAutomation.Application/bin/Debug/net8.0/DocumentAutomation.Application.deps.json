@@ -1,0 +1,53 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "DocumentAutomation.Application/1.0.0": {
+        "dependencies": {
+          "BaseFramework.Core": "1.0.0",
+          "DocumentAutomation.Domain": "1.0.0"
+        },
+        "runtime": {
+          "DocumentAutomation.Application.dll": {}
+        }
+      },
+      "BaseFramework.Core/1.0.0": {
+        "runtime": {
+          "BaseFramework.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "DocumentAutomation.Domain/1.0.0": {
+        "runtime": {
+          "DocumentAutomation.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DocumentAutomation.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BaseFramework.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocumentAutomation.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

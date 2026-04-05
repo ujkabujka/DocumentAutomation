@@ -2,6 +2,27 @@
 
 `EFCoreDemo` is a console-based learning project for PostgreSQL, Npgsql, and Entity Framework Core. The goal is to move from basic database communication to more practical EF Core features in small, runnable examples.
 
+## Relationship To The Main Product
+
+`EFCoreDemo` stays intentionally educational and console-first.
+
+Use it to learn:
+
+- connection-string resolution
+- `DbContext` design-time setup
+- migrations
+- CRUD
+- relationships
+- JSON/JSONB
+- transactions
+
+Then compare those patterns with the production-oriented implementation in:
+
+- `src/DocumentAutomation.Persistence`
+- `src/DocumentAutomation.Infrastructure`
+
+The product foundation extracts the reusable ideas, but it does not depend on this study runner directly.
+
 ## Learning path
 
 1. Configure a connection string.

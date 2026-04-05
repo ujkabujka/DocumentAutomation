@@ -91,17 +91,29 @@ public class ObservableObjectTests
         };
 
         var parameters = node.GetParameters();
-        Assert.True(parameters.ContainsKey(nameof(BridgeProbeNode.VisibleValue)));
+        Assert.True(parameters.ContainsKey("visible"));
+        Assert.False(parameters.ContainsKey(nameof(BridgeProbeNode.VisibleValue)));
         Assert.False(parameters.ContainsKey(nameof(BridgeProbeNode.HiddenValue)));
 
         node.SetParameters(new Dictionary<string, object?>
         {
-            [nameof(BridgeProbeNode.VisibleValue)] = 22,
+            ["visible"] = 22,
             [nameof(BridgeProbeNode.HiddenValue)] = 11
         });
 
         Assert.Equal(22, node.VisibleValue);
         Assert.Equal(99, node.HiddenValue);
+
+        var clrParameters = node.GetParametersByClrName();
+        Assert.True(clrParameters.ContainsKey(nameof(BridgeProbeNode.VisibleValue)));
+        Assert.False(clrParameters.ContainsKey(nameof(BridgeProbeNode.HiddenValue)));
+
+        node.SetParameters(new Dictionary<string, object?>
+        {
+            [nameof(BridgeProbeNode.VisibleValue)] = 31
+        });
+
+        Assert.Equal(31, node.VisibleValue);
     }
 
 
