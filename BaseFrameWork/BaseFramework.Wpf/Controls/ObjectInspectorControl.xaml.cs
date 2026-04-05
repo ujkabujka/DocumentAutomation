@@ -86,11 +86,15 @@ public partial class ObjectInspectorControl : UserControl
             RootPanel.Children.Clear();
             var metadata = _provider.GetMetadata(_target);
 
+            // Runtime, generated, and reflected members all arrive in the same metadata shape here.
+            // That lets the inspector stay ignorant of where the metadata originally came from.
             var orderedMembers = metadata.Members
                 .Select(member => member with
                 {
                     EffectiveAccess = _accessEvaluator.Evaluate(member, _target, _accessContext)
                 })
+                // Rejections are layout-level decisions owned by the model.
+                // Access rules are user/session decisions owned by the evaluator.
                 .Where(member => !_target.IsRejected(member.Key) && member.EffectiveAccess.CanView)
                 .OrderBy(member => member.Section, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(member => member.Category, StringComparer.OrdinalIgnoreCase)

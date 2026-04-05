@@ -9,6 +9,7 @@ namespace DocumentAutomation.Word.OpenXml;
 
 public sealed class OpenXmlTemplateScanner : ITemplateScanner, ITemplateFieldExtractor
 {
+    // V1 intentionally starts with a simple placeholder convention that is easy to teach and easy to scan.
     private static readonly Regex PlaceholderRegex = new(@"\$(?<field>[A-Za-z0-9_:\.-]+)\$", RegexOptions.Compiled);
 
     public async Task<TemplateScanResult> ScanAsync(string templatePath, CancellationToken cancellationToken = default)
@@ -32,6 +33,8 @@ public sealed class OpenXmlTemplateScanner : ITemplateScanner, ITemplateFieldExt
     public Task<IReadOnlyList<TemplateFieldDefinition>> ExtractFieldsAsync(string templatePath, CancellationToken cancellationToken = default)
     {
         using var document = WordprocessingDocument.Open(templatePath, false);
+        // This first pass scans text nodes directly.
+        // It works well for the committed demo template, but future work will need to handle split runs more robustly.
         var discoveredKeys = document.MainDocumentPart?.Document
             .Descendants<Text>()
             .SelectMany(text => PlaceholderRegex.Matches(text.Text).Select(match => match.Groups["field"].Value))

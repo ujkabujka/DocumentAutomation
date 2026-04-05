@@ -34,6 +34,8 @@ public sealed class DocumentPreparationService(
             .Select(field => BuildFieldValue(field, project, currentUser, autofillValues))
             .ToList();
 
+        // The runtime form only exposes fields the current user may see.
+        // We still keep the full prepared value list so the page can show an audit-style summary.
         var form = new DynamicDocumentFormObject(
             template.Fields.Where(field => _authorizationService.CanView(field, currentUser)),
             preparedValues.Where(value => template.Fields.Any(field => string.Equals(field.FieldKey, value.FieldKey, StringComparison.OrdinalIgnoreCase))));
@@ -123,6 +125,8 @@ public sealed class DocumentPreparationService(
 
     private static bool TryResolveFromDictionary(TemplateFieldDefinition field, IReadOnlyDictionary<string, object?> values, out object? value)
     {
+        // DatabaseKey is the strongest hint because it points to the external source shape.
+        // PersistenceKey and FieldKey are fallback bridges for less formal integrations.
         foreach (var key in new[] { field.DatabaseKey, field.PersistenceKey, field.FieldKey })
         {
             if (string.IsNullOrWhiteSpace(key))

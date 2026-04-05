@@ -58,6 +58,8 @@ public sealed class DynamicDocumentFormObject : ObservableObject, IRuntimeInspec
     public InspectableTypeMetadata GetRuntimeMetadata()
         => new(
             GetType(),
+            // The inspector expects member metadata, not CLR properties.
+            // We synthesize that metadata at runtime so a scanned template can behave like a normal model.
             _fields.Select(BuildMemberMetadata).ToList());
 
     protected override void OnUpdate()
