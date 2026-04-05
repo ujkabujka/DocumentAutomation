@@ -5,6 +5,8 @@ namespace DocumentAutomation.Word.OpenXml;
 
 public static class DemoTemplateDocumentWriter
 {
+    // This helper writes a tiny .docx file that the scanner and generator can use in tests and demos.
+    // The template stays intentionally small so a learner can inspect the placeholders without document noise.
     public static Task EnsureSeedTemplateAsync(string outputPath)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);

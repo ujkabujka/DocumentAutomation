@@ -1,0 +1,2 @@
+Project Name: $project_name$
+Project Code: $project_code$

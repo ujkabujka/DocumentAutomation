@@ -1,0 +1,4 @@
+Project Name: $project_name$
+Test Date: $test_date$
+Test Setup Image: $image:test_setup$
+Test Results Table: $table:test_results$

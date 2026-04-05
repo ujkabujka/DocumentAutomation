@@ -27,6 +27,9 @@ If you are new to the repository, read these files in order:
 6. [`docs/CLASS_RESPONSIBILITIES.md`](docs/CLASS_RESPONSIBILITIES.md)
 7. [`docs/LEARNING_PATH.md`](docs/LEARNING_PATH.md)
 8. [`docs/TEMPLATE_READER_EXAMPLE.md`](docs/TEMPLATE_READER_EXAMPLE.md)
+9. [`docs/DOCUMENT_SUBSYSTEM_TREE.md`](docs/DOCUMENT_SUBSYSTEM_TREE.md)
+10. [`docs/DOCUMENT_WORKFLOW.md`](docs/DOCUMENT_WORKFLOW.md)
+11. [`docs/DOCUMENT_EXAMPLES.md`](docs/DOCUMENT_EXAMPLES.md)
 
 There is also an earlier product note in:
 
@@ -96,6 +99,12 @@ It contains placeholders such as:
 - `$table:test_results$`
 
 See [`docs/TEMPLATE_READER_EXAMPLE.md`](docs/TEMPLATE_READER_EXAMPLE.md) for the full walkthrough.
+
+For the focused document subsystem walkthrough, also read:
+
+- [`docs/DOCUMENT_SUBSYSTEM_TREE.md`](docs/DOCUMENT_SUBSYSTEM_TREE.md)
+- [`docs/DOCUMENT_WORKFLOW.md`](docs/DOCUMENT_WORKFLOW.md)
+- [`docs/DOCUMENT_EXAMPLES.md`](docs/DOCUMENT_EXAMPLES.md)
 
 ## Main Questions This Repo Answers
 

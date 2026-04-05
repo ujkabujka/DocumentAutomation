@@ -84,6 +84,7 @@ It now contains:
 - class responsibility notes
 - a learning path
 - a document template reader example
+- a focused document subsystem atlas
 
 ### `src/`
 
@@ -180,6 +181,9 @@ Open:
 ### Word template scanning and generation
 
 - `src/DocumentAutomation.Word/OpenXml`
+- `docs/DOCUMENT_SUBSYSTEM_TREE.md`
+- `docs/DOCUMENT_WORKFLOW.md`
+- `docs/DOCUMENT_EXAMPLES.md`
 
 ## Source Versus Generated Noise
 
