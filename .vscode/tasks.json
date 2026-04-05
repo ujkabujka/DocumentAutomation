@@ -1,0 +1,143 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "restore: Product Solution",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "restore",
+        "${workspaceFolder}/DocumentAutomation.slnx"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build: Product Solution",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/DocumentAutomation.slnx",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build: DocumentAutomation App",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/DocumentAutomation.App/DocumentAutomation.App.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build: BaseFramework Solution",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/BaseFrameWork/BaseFramework.sln",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build: BaseFramework WpfHost",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/BaseFrameWork/BaseFramework.WpfHost/BaseFramework.WpfHost.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build: BaseFramework WebHost",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/BaseFrameWork/BaseFramework.WebHost/BaseFramework.WebHost.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build: EFCoreDemo",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo/EFCoreDemo.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "test: Product Solution",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "test",
+        "${workspaceFolder}/DocumentAutomation.slnx"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "test"
+    },
+    {
+      "label": "test: BaseFramework Solution",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "test",
+        "${workspaceFolder}/BaseFrameWork/BaseFramework.sln"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "test"
+    },
+    {
+      "label": "ef: DocumentAutomation database update",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "ef",
+        "database",
+        "update",
+        "--project",
+        "${workspaceFolder}/src/DocumentAutomation.Persistence/DocumentAutomation.Persistence.csproj",
+        "--startup-project",
+        "${workspaceFolder}/src/DocumentAutomation.Persistence/DocumentAutomation.Persistence.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "ef: EFCoreDemo database update",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "ef",
+        "database",
+        "update",
+        "--project",
+        "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo/EFCoreDemo.csproj",
+        "--startup-project",
+        "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo/EFCoreDemo.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

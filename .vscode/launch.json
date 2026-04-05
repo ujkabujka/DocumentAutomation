@@ -1,0 +1,174 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET: DocumentAutomation App (Demo - Engineer)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: DocumentAutomation App",
+      "program": "${workspaceFolder}/src/DocumentAutomation.App/bin/Debug/net8.0-windows/DocumentAutomation.App.dll",
+      "cwd": "${workspaceFolder}/src/DocumentAutomation.App",
+      "env": {
+        "DOCUMENT_AUTOMATION_CONNECTION_STRING": " ",
+        "Identity__OverrideUserName": "engineer"
+      },
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": ".NET: DocumentAutomation App (Demo - Designer)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: DocumentAutomation App",
+      "program": "${workspaceFolder}/src/DocumentAutomation.App/bin/Debug/net8.0-windows/DocumentAutomation.App.dll",
+      "cwd": "${workspaceFolder}/src/DocumentAutomation.App",
+      "env": {
+        "DOCUMENT_AUTOMATION_CONNECTION_STRING": " ",
+        "Identity__OverrideUserName": "designer"
+      },
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": ".NET: DocumentAutomation App (Demo - Admin)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: DocumentAutomation App",
+      "program": "${workspaceFolder}/src/DocumentAutomation.App/bin/Debug/net8.0-windows/DocumentAutomation.App.dll",
+      "cwd": "${workspaceFolder}/src/DocumentAutomation.App",
+      "env": {
+        "DOCUMENT_AUTOMATION_CONNECTION_STRING": " ",
+        "Identity__OverrideUserName": "admin"
+      },
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": ".NET: DocumentAutomation App (Database - Prompt Connection)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: DocumentAutomation App",
+      "program": "${workspaceFolder}/src/DocumentAutomation.App/bin/Debug/net8.0-windows/DocumentAutomation.App.dll",
+      "cwd": "${workspaceFolder}/src/DocumentAutomation.App",
+      "env": {
+        "DOCUMENT_AUTOMATION_CONNECTION_STRING": "${input:documentAutomationConnectionString}"
+      },
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": ".NET: BaseFramework WpfHost",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: BaseFramework WpfHost",
+      "program": "${workspaceFolder}/BaseFrameWork/BaseFramework.WpfHost/bin/Debug/net8.0-windows/BaseFramework.WpfHost.dll",
+      "cwd": "${workspaceFolder}/BaseFrameWork/BaseFramework.WpfHost",
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": ".NET: BaseFramework WebHost",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: BaseFramework WebHost",
+      "program": "${workspaceFolder}/BaseFrameWork/BaseFramework.WebHost/bin/Debug/net8.0/BaseFramework.WebHost.dll",
+      "cwd": "${workspaceFolder}/BaseFrameWork/BaseFramework.WebHost",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5097"
+      },
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s"
+      }
+    },
+    {
+      "name": ".NET: EFCoreDemo (Help)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: EFCoreDemo",
+      "program": "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo/bin/Debug/net8.0/EFCoreDemo.dll",
+      "args": [
+        "help"
+      ],
+      "cwd": "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo",
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": ".NET: EFCoreDemo (Prompt Command)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: EFCoreDemo",
+      "program": "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo/bin/Debug/net8.0/EFCoreDemo.dll",
+      "args": [
+        "${input:efCoreDemoCommand}"
+      ],
+      "cwd": "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo",
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": ".NET: EFCoreDemo (Prompt Command + Prompt Connection)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: EFCoreDemo",
+      "program": "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo/bin/Debug/net8.0/EFCoreDemo.dll",
+      "args": [
+        "${input:efCoreDemoCommand}"
+      ],
+      "cwd": "${workspaceFolder}/BaseFrameWorkAndPosgreSQL/EFCoreDemo",
+      "env": {
+        "EFCOREDEMO_CONNECTION_STRING": "${input:efCoreDemoConnectionString}"
+      },
+      "justMyCode": true,
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "documentAutomationConnectionString",
+      "type": "promptString",
+      "description": "PostgreSQL connection string for the DocumentAutomation app",
+      "default": "Host=localhost;Port=5432;Database=document_automation;Username=postgres;Password=devpassword"
+    },
+    {
+      "id": "efCoreDemoCommand",
+      "type": "pickString",
+      "description": "Select the EFCoreDemo study command",
+      "options": [
+        "help",
+        "info",
+        "canconnect",
+        "migrate",
+        "seed",
+        "basic",
+        "queries",
+        "relationships",
+        "json",
+        "rawsql",
+        "transaction",
+        "all"
+      ],
+      "default": "help"
+    },
+    {
+      "id": "efCoreDemoConnectionString",
+      "type": "promptString",
+      "description": "PostgreSQL connection string for EFCoreDemo",
+      "default": "Host=localhost;Port=5432;Database=efcore_study;Username=postgres;Password=devpassword"
+    }
+  ]
+}
