@@ -28,6 +28,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAuthorizationService, ApplicationAuthorizationService>();
         services.AddTransient<IDocumentPreparationService, DocumentPreparationService>();
 
+        // The app is intentionally dual-mode.
+        // If PostgreSQL is reachable we use real persistence services.
+        // If not, we still keep the product explorable through seeded demo services.
         if (connection.CanConnect && !string.IsNullOrWhiteSpace(connection.ConnectionString))
         {
             services.AddTransient(_ => new DocumentAutomationDbContext(connection.ConnectionString!));

@@ -232,3 +232,133 @@ flowchart TD
     ProductRead --> ProductRun["Run DocumentAutomation.App"]
     ProductRun --> TemplateExample["Read Template Reader Example"]
 ```
+
+## 10. Project Dependency Tree
+
+```mermaid
+flowchart LR
+    Core["BaseFramework.Core"]
+    Gen["BaseFramework.Generators"]
+    Wpf["BaseFramework.Wpf"]
+    WpfHost["BaseFramework.WpfHost"]
+    WebHost["BaseFramework.WebHost"]
+
+    Domain["DocumentAutomation.Domain"]
+    Application["DocumentAutomation.Application"]
+    Persistence["DocumentAutomation.Persistence"]
+    Infrastructure["DocumentAutomation.Infrastructure"]
+    Word["DocumentAutomation.Word"]
+    App["DocumentAutomation.App"]
+
+    Core --> Wpf
+    Core --> WpfHost
+    Gen --> WpfHost
+    Wpf --> WpfHost
+    Core --> WebHost
+
+    Domain --> Application
+    Domain --> Persistence
+    Application --> Infrastructure
+    Application --> Word
+    Persistence --> Infrastructure
+    Core --> Application
+    Core --> Word
+    Wpf --> App
+    Infrastructure --> App
+    Word --> App
+```
+
+## 11. App Startup Flow
+
+```mermaid
+flowchart TD
+    Start["App Start"] --> Host["Build Generic Host"]
+    Host --> Config["Load appsettings + local settings + env vars"]
+    Config --> Resolve["Resolve connection + storage"]
+    Resolve --> Mode{"Database available?"}
+    Mode -- Yes --> DbServices["Register EF-backed services"]
+    Mode -- No --> DemoServices["Register demo in-memory services"]
+    DbServices --> WordServices["Register OpenXML scanner + generator"]
+    DemoServices --> WordServices
+    WordServices --> MainWindow["Create MainWindow"]
+    MainWindow --> Seed["Ensure template folder and seed .docx"]
+    Seed --> User["Resolve current user"]
+    User --> Nav["Register pages allowed for that user"]
+    Nav --> Ready["App Ready"]
+```
+
+## 12. User Selects Template Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Page as DocumentGenerationPage
+    participant Projects as IProjectDataService
+    participant Templates as ITemplateCatalogService
+    participant Prep as DocumentPreparationService
+
+    User->>Page: Open Generate page
+    Page->>Projects: GetProjectsAsync()
+    Page->>Templates: GetTemplatesAsync()
+    Projects-->>Page: Project list
+    Templates-->>Page: Template list
+    User->>Page: Select project + template
+    User->>Page: Click Prepare
+    Page->>Prep: PrepareAsync(projectId, templateId)
+```
+
+## 13. Template Analysis Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Designer as DesignerPage
+    participant Storage as ITemplateStorage
+    participant Scanner as ITemplateScanner
+    participant Catalog as ITemplateCatalogService
+
+    User->>Designer: Select template
+    User->>Designer: Click Rescan Selected Template
+    Designer->>Storage: ResolveTemplatePath(relativePath)
+    Storage-->>Designer: Absolute template path
+    Designer->>Scanner: ScanAsync(path)
+    Scanner-->>Designer: TemplateScanResult
+    Designer->>Catalog: SaveTemplateAsync(template with scanned fields)
+    Catalog-->>Designer: Saved
+    Designer-->>User: Visible field table with key, type, required, source, DB key
+```
+
+## 14. DB Autofill Flow
+
+```mermaid
+flowchart LR
+    Project["ProjectRecord"] --> Autofill["GetAutofillValuesAsync"]
+    Autofill --> Prep["DocumentPreparationService"]
+    Template["TemplateFieldDefinition"] --> Prep
+    User["CurrentUserSession"] --> Prep
+
+    Prep --> DB["Try DatabaseKey / PersistenceKey / FieldKey"]
+    Prep --> Computed["Try computed values"]
+    Prep --> Default["Try default value"]
+
+    DB --> Value["DocumentFieldValue"]
+    Computed --> Value
+    Default --> Value
+    Value --> Form["DynamicDocumentFormObject"]
+```
+
+## 15. Permission Evaluation Flow
+
+```mermaid
+flowchart TD
+    Session["CurrentUserSession"] --> Roles["Roles"]
+    Session --> Permissions["Permissions"]
+    Member["Field or Action Metadata"] --> Rules["Visible / Editable / Invoke Rules"]
+    Roles --> Eval["Evaluate"]
+    Permissions --> Eval
+    Rules --> Eval
+    Eval --> Hidden["Hide"]
+    Eval --> ReadOnly["Show Read-Only"]
+    Eval --> Editable["Show Editable"]
+    Eval --> Action["Enable / Disable Action"]
+```

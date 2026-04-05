@@ -69,6 +69,9 @@
                             <DataGridTextColumn Header="Key" Binding="{Binding FieldKey}" Width="*" />
                             <DataGridTextColumn Header="Display" Binding="{Binding DisplayName}" Width="*" />
                             <DataGridTextColumn Header="Type" Binding="{Binding FieldType}" Width="Auto" />
+                            <DataGridCheckBoxColumn Header="Required" Binding="{Binding IsRequired}" Width="Auto" />
+                            <DataGridTextColumn Header="Suggested Source" Binding="{Binding SuggestedSource}" Width="Auto" />
+                            <DataGridTextColumn Header="DB Key" Binding="{Binding DatabaseKey}" Width="*" />
                             <DataGridTextColumn Header="Section" Binding="{Binding Section}" Width="Auto" />
                             <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="Auto" />
                         </DataGrid.Columns>

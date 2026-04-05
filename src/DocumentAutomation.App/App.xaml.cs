@@ -15,6 +15,7 @@ public partial class App : System.Windows.Application
     {
         base.OnStartup(e);
 
+        // Generic Host keeps startup readable: configuration, DI, and lifetime all live in one familiar place.
         _host = Host.CreateDefaultBuilder()
             .ConfigureAppConfiguration(configuration =>
             {

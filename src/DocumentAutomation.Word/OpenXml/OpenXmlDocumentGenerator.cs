@@ -18,6 +18,8 @@ public sealed class OpenXmlDocumentGenerator : IDocumentGenerator
             .Where(field => field.FieldType is not TemplateFieldType.Image and not TemplateFieldType.Table)
             .ToDictionary(field => $"${field.FieldKey}$", field => ConvertToText(field.Value), StringComparer.OrdinalIgnoreCase);
 
+        // Unsupported field kinds are reported explicitly instead of silently ignored.
+        // That keeps the current generator honest while image/table support is still future work.
         warnings.AddRange(request.Fields
             .Where(field => field.FieldType is TemplateFieldType.Image or TemplateFieldType.Table)
             .Select(field => $"{field.DisplayName} ({field.FieldKey}) was recognized but {field.FieldType} generation is not implemented yet."));

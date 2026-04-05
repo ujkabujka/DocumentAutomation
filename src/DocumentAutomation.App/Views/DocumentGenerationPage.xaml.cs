@@ -67,6 +67,8 @@ public partial class DocumentGenerationPage : UserControl
 
         _currentPreparation = await _documentPreparationService.PrepareAsync(project.Id, template.Id);
         var accessContext = _currentPreparation.CurrentUser.ToAccessContext();
+        // The form is runtime-built from template field definitions, but the inspector does not care.
+        // It binds exactly the same way it would bind to a normal reflected model.
         FieldInspector.Bind(
             _currentPreparation.Form,
             _metadataProvider,

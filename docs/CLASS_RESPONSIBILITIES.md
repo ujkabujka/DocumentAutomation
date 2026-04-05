@@ -500,6 +500,63 @@ Depends on:
 - `ITemplateStorage`
 - the three page classes
 
+### `DesignerPage`
+
+What it is for:
+
+- the visible template-analysis screen
+
+What problem it solves:
+
+- gives a human-readable view of what a template file currently asks for
+
+Who uses it:
+
+- designers
+- learners exploring the scanner workflow
+
+Key responsibilities:
+
+- list templates
+- rescan a `.docx`
+- show keys, types, required flags, suggested source order, and DB keys
+
+Depends on:
+
+- `ITemplateCatalogService`
+- `ITemplateStorage`
+- `ITemplateScanner`
+
+### `DocumentGenerationPage`
+
+What it is for:
+
+- the visible document preparation and generation screen
+
+What problem it solves:
+
+- shows how project data, template metadata, the dynamic inspector, and document output all fit together
+
+Who uses it:
+
+- system engineers
+- learners exploring the end-to-end workflow
+
+Key responsibilities:
+
+- load projects and templates
+- prepare a runtime document form
+- save persistable field values
+- generate output documents
+
+Depends on:
+
+- `IProjectDataService`
+- `ITemplateCatalogService`
+- `IDocumentPreparationService`
+- `IDocumentGenerator`
+- `ICurrentUserContext`
+
 ### `ApplicationAuthorizationService`
 
 What it is for:
@@ -607,6 +664,30 @@ Depends on:
 
 - configuration
 - Npgsql connection test
+
+### `ServiceCollectionExtensions`
+
+What it is for:
+
+- the product's infrastructure composition root
+
+What problem it solves:
+
+- keeps the decision between demo mode and DB-backed mode in one readable place
+
+Who uses it:
+
+- `App.xaml.cs`
+
+Key method:
+
+- `AddDocumentAutomationInfrastructure(...)`
+
+Depends on:
+
+- `DocumentAutomationConnectionResolver`
+- demo services
+- DB services
 
 ### `DemoDataStore`
 

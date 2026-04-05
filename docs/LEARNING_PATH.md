@@ -41,8 +41,9 @@ Read:
 2. `docs/REPOSITORY_MAP.md`
 3. `docs/ARCHITECTURE_TREE.md`
 4. `docs/WORKFLOWS.md`
-5. `docs/DIAGRAMS.md`
-6. `docs/CLASS_RESPONSIBILITIES.md`
+5. `docs/EXAMPLES.md`
+6. `docs/DIAGRAMS.md`
+7. `docs/CLASS_RESPONSIBILITIES.md`
 
 Reason:
 

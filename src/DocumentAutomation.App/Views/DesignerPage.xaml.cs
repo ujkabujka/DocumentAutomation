@@ -55,9 +55,11 @@ public partial class DesignerPage : UserControl
         var scan = await _templateScanner.ScanAsync(_templateStorage.ResolveTemplatePath(template.RelativePath));
         template.Fields = scan.Fields.ToList();
         await _templateCatalogService.SaveTemplateAsync(template);
+        // The designer page is the easiest visible explanation of the template-reader workflow.
+        // We surface both the discovered field list and any warnings so the scanner stays teachable.
         DesignerStatusText.Text = scan.Warnings.Count == 0
-            ? $"Template '{template.Name}' scanned successfully."
-            : string.Join(Environment.NewLine, scan.Warnings);
+            ? $"Template '{template.Name}' scanned successfully. Discovered {scan.Fields.Count} placeholder fields."
+            : $"Template '{template.Name}' scanned with warnings:{Environment.NewLine}{string.Join(Environment.NewLine, scan.Warnings)}";
 
         await RefreshAsync();
     }
@@ -71,7 +73,46 @@ public partial class DesignerPage : UserControl
             return;
         }
 
-        TemplateSummaryText.Text = $"{template.Name} | {template.DocumentType} | {template.RelativePath}";
-        FieldGrid.ItemsSource = template.Fields.OrderBy(field => field.Order).ToList();
+        var orderedFields = template.Fields.OrderBy(field => field.Order).ToList();
+        TemplateSummaryText.Text = $"{template.Name} | {template.DocumentType} | {template.RelativePath}{Environment.NewLine}This template currently asks for {orderedFields.Count} fields.";
+        FieldGrid.ItemsSource = orderedFields.Select(CreateFieldRow).ToList();
     }
+
+    private static TemplateFieldRow CreateFieldRow(TemplateFieldDefinition field)
+        => new(
+            field.FieldKey,
+            field.DisplayName,
+            field.FieldType.ToString(),
+            field.IsRequired,
+            DescribeSuggestedSource(field),
+            field.DatabaseKey ?? string.Empty,
+            field.Section ?? string.Empty,
+            field.Category ?? string.Empty);
+
+    private static string DescribeSuggestedSource(TemplateFieldDefinition field)
+    {
+        if (field.SourcePriority.Length > 0)
+        {
+            return string.Join(" -> ", field.SourcePriority);
+        }
+
+        if (!string.IsNullOrWhiteSpace(field.DatabaseKey))
+        {
+            return "Database";
+        }
+
+        return field.FieldType is TemplateFieldType.Image or TemplateFieldType.Table or TemplateFieldType.File
+            ? "User"
+            : "User or Database";
+    }
+
+    private sealed record TemplateFieldRow(
+        string FieldKey,
+        string DisplayName,
+        string FieldType,
+        bool IsRequired,
+        string SuggestedSource,
+        string DatabaseKey,
+        string Section,
+        string Category);
 }

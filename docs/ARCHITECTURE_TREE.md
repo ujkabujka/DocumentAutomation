@@ -34,6 +34,7 @@ DocumentAutomation/
 |  |- REPOSITORY_MAP.md
 |  |- ARCHITECTURE_TREE.md
 |  |- WORKFLOWS.md
+|  |- EXAMPLES.md
 |  |- DIAGRAMS.md
 |  |- CLASS_RESPONSIBILITIES.md
 |  |- LEARNING_PATH.md
@@ -473,3 +474,101 @@ Focus:
 - placeholder scanning
 - text replacement
 - warnings for image and table placeholders
+
+## 6. Project Dependency Summary
+
+This section answers the practical question: "who depends on whom?"
+
+### Framework side
+
+- `BaseFramework.Core`
+  Depends on:
+  very little outside itself
+  Used by:
+  `BaseFramework.Wpf`, `BaseFramework.WpfHost`, `BaseFramework.WebHost`, product application code
+- `BaseFramework.Generators`
+  Depends on:
+  Roslyn APIs and the framework metadata shape
+  Used by:
+  annotated model projects such as `BaseFramework.WpfHost`
+- `BaseFramework.Wpf`
+  Depends on:
+  `BaseFramework.Core`
+  Used by:
+  `BaseFramework.WpfHost` and `DocumentAutomation.App`
+- `BaseFramework.WpfHost`
+  Depends on:
+  `BaseFramework.Core`, `BaseFramework.Wpf`, `BaseFramework.Generators`
+  Used by:
+  learners and manual example runs
+- `BaseFramework.WebHost`
+  Depends on:
+  basic preview payloads and web hosting
+  Used by:
+  lightweight preview/demo scenarios
+
+### Learning project side
+
+- `EFCoreDemo`
+  Depends on:
+  EF Core, Npgsql, PostgreSQL
+  Used by:
+  learners who want to study persistence concepts in isolation
+
+### Product side
+
+- `DocumentAutomation.Domain`
+  Depends on:
+  no app/UI/database concerns
+  Used by:
+  every product layer
+- `DocumentAutomation.Application`
+  Depends on:
+  `DocumentAutomation.Domain`, selected framework concepts for dynamic forms
+  Used by:
+  `DocumentAutomation.App`, `DocumentAutomation.Infrastructure`, `DocumentAutomation.Word`
+- `DocumentAutomation.Persistence`
+  Depends on:
+  `DocumentAutomation.Domain`, EF Core, Npgsql
+  Used by:
+  `DocumentAutomation.Infrastructure`
+- `DocumentAutomation.Infrastructure`
+  Depends on:
+  `DocumentAutomation.Application`, `DocumentAutomation.Persistence`
+  Used by:
+  `DocumentAutomation.App`
+- `DocumentAutomation.Word`
+  Depends on:
+  `DocumentAutomation.Application`, `DocumentAutomation.Domain`, OpenXML
+  Used by:
+  `DocumentAutomation.App`
+- `DocumentAutomation.App`
+  Depends on:
+  infrastructure services, word services, reusable WPF inspector
+  Used by:
+  the end user
+
+## 7. Typical Product Workflow Tree
+
+```text
+App starts
+|- Resolve configuration
+|- Resolve database/demo mode
+|- Register services
+|- Resolve current user
+`- Show allowed pages
+
+Designer flow
+|- Select template
+|- Rescan .docx
+|- Extract placeholders
+`- Save refreshed field model
+
+Generation flow
+|- Select project
+|- Select template
+|- Prepare field values
+|- Show runtime form
+|- Save persistable values
+`- Generate output document
+```

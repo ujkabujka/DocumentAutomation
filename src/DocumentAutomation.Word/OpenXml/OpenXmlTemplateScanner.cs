@@ -43,17 +43,22 @@ public sealed class OpenXmlTemplateScanner : ITemplateScanner, ITemplateFieldExt
             ?? [];
 
         IReadOnlyList<TemplateFieldDefinition> result = discoveredKeys
-            .Select((key, index) => new TemplateFieldDefinition
+            .Select((key, index) =>
             {
-                Id = Guid.NewGuid(),
-                FieldKey = key,
-                DisplayName = ToDisplayName(key),
-                FieldType = InferFieldType(key),
-                IsRequired = true,
-                Order = index + 1,
-                Section = InferSection(key),
-                Category = InferCategory(key),
-                SourcePriority = ["Database", "Default"]
+                var fieldType = InferFieldType(key);
+                return new TemplateFieldDefinition
+                {
+                    Id = Guid.NewGuid(),
+                    FieldKey = key,
+                    DisplayName = ToDisplayName(key),
+                    FieldType = fieldType,
+                    IsRequired = true,
+                    Order = index + 1,
+                    Section = InferSection(key),
+                    Category = InferCategory(key),
+                    DatabaseKey = InferDatabaseKey(key),
+                    SourcePriority = InferSourcePriority(key, fieldType)
+                };
             })
             .ToList();
 
@@ -78,6 +83,42 @@ public sealed class OpenXmlTemplateScanner : ITemplateScanner, ITemplateFieldExt
         => key.StartsWith("image:", StringComparison.OrdinalIgnoreCase) || key.StartsWith("table:", StringComparison.OrdinalIgnoreCase)
             ? "Placeholder"
             : "Field";
+
+    private static string? InferDatabaseKey(string key)
+        => key.ToLowerInvariant() switch
+        {
+            "project_name" => "project.name",
+            "project_code" => "project.code",
+            "lead_engineer" => "project.lead_engineer",
+            "test_date" => "project.test_date",
+            "system.current_user" => "system.current_user",
+            "system.generated_on" => "system.generated_on",
+            _ => null
+        };
+
+    private static string[] InferSourcePriority(string key, TemplateFieldType fieldType)
+    {
+        // These are intentionally simple teaching heuristics.
+        // The scanner is not deciding the final business rules forever; it is producing a helpful first draft.
+        if (key.StartsWith("system.", StringComparison.OrdinalIgnoreCase))
+        {
+            return ["Computed"];
+        }
+
+        if (fieldType is TemplateFieldType.Image or TemplateFieldType.Table or TemplateFieldType.File)
+        {
+            return ["User"];
+        }
+
+        if (key.Contains("note", StringComparison.OrdinalIgnoreCase) ||
+            key.Contains("summary", StringComparison.OrdinalIgnoreCase) ||
+            key.Contains("comment", StringComparison.OrdinalIgnoreCase))
+        {
+            return ["User", "Default"];
+        }
+
+        return ["Database", "User", "Default"];
+    }
 
     private static string ToDisplayName(string key)
     {

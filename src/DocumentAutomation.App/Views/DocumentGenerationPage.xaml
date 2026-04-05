@@ -93,6 +93,7 @@
                             <DataGridTextColumn Header="Field" Binding="{Binding DisplayName}" Width="*" />
                             <DataGridTextColumn Header="Source" Binding="{Binding Source}" Width="Auto" />
                             <DataGridCheckBoxColumn Header="Missing" Binding="{Binding IsMissing}" Width="Auto" />
+                            <DataGridCheckBoxColumn Header="Persist Back" Binding="{Binding CanPersistBack}" Width="Auto" />
                             <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>

@@ -79,6 +79,7 @@ It now contains:
 - a repository map
 - architecture trees
 - workflow explanations
+- grouped example guides
 - Mermaid diagrams
 - class responsibility notes
 - a learning path

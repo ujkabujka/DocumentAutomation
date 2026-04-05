@@ -22,10 +22,11 @@ If you are new to the repository, read these files in order:
 1. [`docs/REPOSITORY_MAP.md`](docs/REPOSITORY_MAP.md)
 2. [`docs/ARCHITECTURE_TREE.md`](docs/ARCHITECTURE_TREE.md)
 3. [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md)
-4. [`docs/DIAGRAMS.md`](docs/DIAGRAMS.md)
-5. [`docs/CLASS_RESPONSIBILITIES.md`](docs/CLASS_RESPONSIBILITIES.md)
-6. [`docs/LEARNING_PATH.md`](docs/LEARNING_PATH.md)
-7. [`docs/TEMPLATE_READER_EXAMPLE.md`](docs/TEMPLATE_READER_EXAMPLE.md)
+4. [`docs/EXAMPLES.md`](docs/EXAMPLES.md)
+5. [`docs/DIAGRAMS.md`](docs/DIAGRAMS.md)
+6. [`docs/CLASS_RESPONSIBILITIES.md`](docs/CLASS_RESPONSIBILITIES.md)
+7. [`docs/LEARNING_PATH.md`](docs/LEARNING_PATH.md)
+8. [`docs/TEMPLATE_READER_EXAMPLE.md`](docs/TEMPLATE_READER_EXAMPLE.md)
 
 There is also an earlier product note in:
 

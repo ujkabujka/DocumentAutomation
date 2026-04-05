@@ -461,3 +461,123 @@ The likely future workflow is:
 For the concrete example, see:
 
 - `docs/TEMPLATE_READER_EXAMPLE.md`
+
+## 13. App Startup Flow
+
+This is the first workflow a new reader should understand in the product app.
+
+### Step by step
+
+1. `App.xaml.cs` builds a Generic Host.
+2. Configuration is loaded from JSON files and environment variables.
+3. `DocumentAutomationConnectionResolver` tests whether PostgreSQL is reachable.
+4. Storage roots are resolved for:
+
+   - templates
+   - generated output
+
+5. `ServiceCollectionExtensions` chooses one service set:
+
+   - EF-backed services when PostgreSQL is available
+   - demo services when PostgreSQL is unavailable
+
+6. OpenXML services are registered.
+7. `MainWindow` is created.
+8. `MainWindow` ensures the seed template exists.
+9. The current user is resolved.
+10. Navigation pages are added based on permissions.
+
+## 14. User Selects Template Flow
+
+This is the UI-level workflow from selection to prepared form.
+
+### Step by step
+
+1. The user opens the `Generate` page.
+2. The page loads:
+
+   - project list
+   - template list
+
+3. The user selects one project and one template.
+4. The user clicks `Prepare`.
+5. The page calls `DocumentPreparationService.PrepareAsync(...)`.
+6. The returned runtime form is bound to the BaseFramework inspector.
+7. The prepared field snapshot is shown beside it.
+
+## 15. Template Analysis Flow
+
+This is the clearest "read a template and learn what it wants" workflow in the repo today.
+
+### Step by step
+
+1. The user opens the `Designer` page.
+2. The page shows registered templates.
+3. The user selects a template.
+4. The user clicks `Rescan Selected Template`.
+5. The scanner reads the `.docx`.
+6. The scanner extracts placeholders.
+7. The scanner infers:
+
+   - key
+   - display name
+   - field type
+   - required flag
+   - suggested source order
+   - DB key when the heuristic knows one
+
+8. The designer page saves the refreshed field list.
+9. The field table shows the result in a human-readable way.
+
+## 16. DB Autofill Flow
+
+This is the business workflow that turns a template field into a value.
+
+### Step by step
+
+1. `DocumentPreparationService` receives one `TemplateFieldDefinition`.
+2. It checks the field's source priority.
+3. For database lookup it tries:
+
+   - `DatabaseKey`
+   - `PersistenceKey`
+   - `FieldKey`
+
+4. If no DB value exists, it checks computed rules.
+5. If no computed value exists, it checks defaults.
+6. If still unresolved, the field is marked missing.
+7. The result becomes a `DocumentFieldValue`.
+
+### Why this matters
+
+This is the bridge between:
+
+- the template
+- project data
+- current user context
+- the final editable form
+
+## 17. Permission Evaluation Flow
+
+This is the rule flow behind both the framework and the product.
+
+### Step by step
+
+1. A current session supplies:
+
+   - user name
+   - roles
+   - permissions
+
+2. A field or action supplies access rules.
+3. The evaluator compares the session with the rules.
+4. The result decides:
+
+   - visible or hidden
+   - editable or read-only
+   - invokable or disabled
+
+### Two places to notice this
+
+- framework metadata via `DefaultMemberAccessEvaluator`
+- product template fields via `ApplicationAuthorizationService`

@@ -1,12 +1,14 @@
 # BaseFramework
 
-`BaseFramework` is the reusable dynamic UI foundation used by the main `DocumentAutomation` product. It centers on one idea:
+`BaseFramework` is the reusable dynamic UI foundation used by the main `DocumentAutomation` product.
 
-- define editable business metadata once
+Its core idea is simple:
+
+- describe editable data with metadata
 - keep stable business keys separate from CLR member names
 - let hosts render inspectors, commands, nested objects, and runtime-generated forms from that metadata
 
-The framework is still educational. The WPF host is now an example gallery that moves from beginner cases to runtime template-driven forms and role-aware metadata.
+The framework is still educational. The WPF host is an example gallery that moves from beginner cases to runtime template-driven forms and role-aware metadata.
 
 ## Projects
 
@@ -251,22 +253,50 @@ and return `InspectableTypeMetadata` built at runtime. This is how template-defi
 That capability is now used in:
 
 - `BaseFramework.WpfHost` runtime template example
-- the main `DocumentAutomation` product’s document preparation flow
+- the main `DocumentAutomation` product's document preparation flow
 
 ## Example Gallery
 
 Run `BaseFramework.WpfHost` to explore the progression:
 
-1. `Basics`
-   Scalar fields, numeric hints, dropdown/value source, multiline string, note editor, computed read-only field, command invocation.
-2. `Nested`
-   Conditional visibility, nested object inspector, collections, collection-manipulating command, computed summary.
-3. `Roles`
-   Role/permission-aware visibility, editability, and command access.
-4. `Template`
-   Runtime-generated metadata that behaves like a scanned template-driven form.
-5. `Schedule`
-   Preserved advanced composite example with calendar integration.
+1. `Basic`
+   Demonstrates scalar fields, numeric hints, dropdown/value source, multiline string, note editor, computed read-only field, and command invocation.
+   Start reading in code:
+   `BaseFramework.WpfHost/Models/ExampleGalleryModels.cs` -> `BasicDocumentExampleModel`
+2. `Intermediate`
+   Demonstrates conditional visibility, nested object inspection, collections, collection-manipulating commands, and computed summaries.
+   Start reading in code:
+   `BaseFramework.WpfHost/Models/ExampleGalleryModels.cs` -> `NestedWorkflowExampleModel`
+3. `Security`
+   Demonstrates role-based visibility, permission-based editability, and action-level authorization.
+   Start reading in code:
+   `BaseFramework.WpfHost/Models/ExampleGalleryModels.cs` -> `RoleAwareExampleModel`
+4. `Document Automation`
+   Demonstrates runtime-generated metadata that behaves like a scanned template-driven form.
+   Start reading in code:
+   `BaseFramework.WpfHost/Models/TemplateDrivenExampleForm.cs`
+5. `Advanced`
+   Demonstrates the larger scheduling example with nested state, collections, calendar concepts, and richer command flows.
+   Start reading in code:
+   `BaseFramework.WpfHost/Models/InspectorTestHierarchy.cs` -> `Test_Class_3`
+
+## Example Ladder
+
+The repository now teaches the framework in this order:
+
+1. Basic
+2. Intermediate
+3. Advanced
+4. Document automation
+5. Security / roles
+6. Persistence / DB
+
+The first five are visible in `BaseFramework.WpfHost`.
+
+The persistence / DB example lives in:
+
+- `BaseFrameWorkAndPosgreSQL/EFCoreDemo`
+- `src/DocumentAutomation.App` in demo mode or DB-backed mode
 
 ## How To Add A New Model
 

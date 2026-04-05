@@ -23,6 +23,8 @@ public static class DocumentAutomationConnectionResolver
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
 
+            // We test the connection early so the rest of the app can stay simple.
+            // Startup only needs to answer one question here: real database mode or demo mode?
             var builder = new NpgsqlConnectionStringBuilder(connectionString);
             return new DocumentAutomationConnectionResolution(
                 connectionString,

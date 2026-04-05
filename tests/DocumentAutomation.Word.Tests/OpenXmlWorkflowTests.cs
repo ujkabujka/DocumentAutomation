@@ -21,9 +21,10 @@ public sealed class OpenXmlWorkflowTests
             var result = await scanner.ScanAsync(templatePath);
 
             Assert.Empty(result.Warnings);
-            Assert.Contains(result.Fields, field => field.FieldKey == "project_name" && field.FieldType == TemplateFieldType.Text);
-            Assert.Contains(result.Fields, field => field.FieldKey == "image:test_setup" && field.FieldType == TemplateFieldType.Image);
-            Assert.Contains(result.Fields, field => field.FieldKey == "table:test_results" && field.FieldType == TemplateFieldType.Table);
+            Assert.Contains(result.Fields, field => field.FieldKey == "project_name" && field.FieldType == TemplateFieldType.Text && field.DatabaseKey == "project.name");
+            Assert.Contains(result.Fields, field => field.FieldKey == "system.current_user" && field.SourcePriority.SequenceEqual(["Computed"]));
+            Assert.Contains(result.Fields, field => field.FieldKey == "image:test_setup" && field.FieldType == TemplateFieldType.Image && field.SourcePriority.SequenceEqual(["User"]));
+            Assert.Contains(result.Fields, field => field.FieldKey == "table:test_results" && field.FieldType == TemplateFieldType.Table && field.SourcePriority.SequenceEqual(["User"]));
         }
         finally
         {
